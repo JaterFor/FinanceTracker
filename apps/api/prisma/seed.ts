@@ -4,14 +4,14 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
-  const email = process.env.ADMIN_EMAIL ?? 'admin@example.com';
-  const password = process.env.ADMIN_PASSWORD ?? 'change-me-please';
+  const username = process.env.ADMIN_USERNAME ?? 'admin';
+  const password = process.env.ADMIN_PASSWORD ?? 'admin';
 
   const passwordHash = await bcrypt.hash(password, 10);
   await prisma.user.upsert({
-    where: { email },
-    update: {},
-    create: { email, passwordHash },
+    where: { username },
+    update: { passwordHash },
+    create: { username, passwordHash },
   });
 
   const categories: Array<{
@@ -33,7 +33,13 @@ async function main() {
     }
   }
 
-  console.log(`Seeded user "${email}" and ${categories.length} categories.`);
+  const defaultAccountName = 'Основной';
+  const existingAccount = await prisma.account.findFirst({ where: { name: defaultAccountName } });
+  if (!existingAccount) {
+    await prisma.account.create({ data: { name: defaultAccountName } });
+  }
+
+  console.log(`Seeded user "${username}", ${categories.length} categories, and a default account.`);
 }
 
 main()

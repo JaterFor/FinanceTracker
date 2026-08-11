@@ -4,23 +4,24 @@ import { useLogin } from '../model/use-login';
 
 export function LoginForm() {
   const { t } = useTranslation();
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { mutate, isPending, error } = useLogin();
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    mutate({ email, password });
+    mutate({ username, password });
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        {t('auth.email')}
+        {t('auth.username')}
         <input
-          type="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          type="text"
+          autoCapitalize="none"
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
           required
         />
       </label>

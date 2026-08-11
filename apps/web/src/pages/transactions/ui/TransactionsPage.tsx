@@ -17,7 +17,7 @@ export function TransactionsPage() {
       <header>
         <h1>{t('transactions.title')}</h1>
         <p>
-          {user?.email}{' '}
+          {user?.username}{' '}
           <button type="button" onClick={logout}>
             {t('transactions.signOut')}
           </button>

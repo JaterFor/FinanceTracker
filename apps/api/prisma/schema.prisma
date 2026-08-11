@@ -14,7 +14,7 @@ enum TransactionType {
 
 model User {
   id           String   @id @default(cuid())
-  email        String   @unique
+  username     String   @unique
   passwordHash String
   createdAt    DateTime @default(now())
 }
@@ -28,6 +28,13 @@ model Category {
   transactions Transaction[]
 }
 
+model Account {
+  id           String        @id @default(cuid())
+  name         String
+  createdAt    DateTime      @default(now())
+  transactions Transaction[]
+}
+
 model Transaction {
   id         String           @id @default(cuid())
   amount     Int
@@ -37,4 +44,6 @@ model Transaction {
   createdAt  DateTime         @default(now())
   category   Category         @relation(fields: [categoryId], references: [id])
   categoryId String
+  account    Account?         @relation(fields: [accountId], references: [id])
+  accountId  String?
 }

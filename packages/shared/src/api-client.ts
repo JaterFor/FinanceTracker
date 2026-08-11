@@ -1,5 +1,7 @@
 import type {
+  Account,
   Category,
+  CreateAccountInput,
   CreateTransactionInput,
   LoginInput,
   LoginResponse,
@@ -17,6 +19,8 @@ export interface ApiClient {
   createTransaction: (input: CreateTransactionInput) => Promise<Transaction>;
   deleteTransaction: (id: string) => Promise<void>;
   listCategories: () => Promise<Category[]>;
+  listAccounts: () => Promise<Account[]>;
+  createAccount: (input: CreateAccountInput) => Promise<Account>;
 }
 
 export class ApiError extends Error {
@@ -57,5 +61,8 @@ export function createApiClient({ baseUrl, getToken }: ApiClientOptions): ApiCli
       request<Transaction>('/transactions', { method: 'POST', body: JSON.stringify(input) }),
     deleteTransaction: (id) => request<void>(`/transactions/${id}`, { method: 'DELETE' }),
     listCategories: () => request<Category[]>('/categories'),
+    listAccounts: () => request<Account[]>('/accounts'),
+    createAccount: (input) =>
+      request<Account>('/accounts', { method: 'POST', body: JSON.stringify(input) }),
   };
 }

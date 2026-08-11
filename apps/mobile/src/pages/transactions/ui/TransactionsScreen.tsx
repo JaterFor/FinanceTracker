@@ -19,7 +19,7 @@ export function TransactionsScreen() {
     <SafeAreaView style={styles.screen}>
       <View style={styles.header}>
         <Text style={styles.title}>{t('transactions.title')}</Text>
-        <Text style={styles.muted}>{user?.email}</Text>
+        <Text style={styles.muted}>{user?.username}</Text>
         <Button title={t('transactions.signOut')} color={colors.primary} onPress={() => logout()} />
       </View>
 

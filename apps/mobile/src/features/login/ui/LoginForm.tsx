@@ -6,19 +6,18 @@ import { useLogin } from '../model/use-login';
 
 export function LoginForm() {
   const { t } = useTranslation();
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { mutate, isPending, error } = useLogin();
 
   return (
     <View style={styles.form}>
       <TextInput
-        placeholder={t('auth.email')}
+        placeholder={t('auth.username')}
         placeholderTextColor={colors.textMuted}
         autoCapitalize="none"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={setEmail}
+        value={username}
+        onChangeText={setUsername}
         style={styles.input}
       />
       <TextInput
@@ -33,7 +32,7 @@ export function LoginForm() {
         title={isPending ? t('auth.signingIn') : t('auth.signIn')}
         color={colors.primary}
         disabled={isPending}
-        onPress={() => mutate({ email, password })}
+        onPress={() => mutate({ username, password })}
       />
       {error ? <Text style={styles.error}>{error.message}</Text> : null}
     </View>

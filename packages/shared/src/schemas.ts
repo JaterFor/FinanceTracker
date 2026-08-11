@@ -5,13 +5,13 @@ export type TransactionType = z.infer<typeof transactionTypeSchema>;
 
 export const userSchema = z.object({
   id: z.string(),
-  email: z.string().email(),
+  username: z.string(),
 });
 export type User = z.infer<typeof userSchema>;
 
 export const loginInputSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
+  username: z.string().min(1),
+  password: z.string().min(1),
 });
 export type LoginInput = z.infer<typeof loginInputSchema>;
 
@@ -30,11 +30,23 @@ export const categorySchema = z.object({
 });
 export type Category = z.infer<typeof categorySchema>;
 
+export const accountSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+});
+export type Account = z.infer<typeof accountSchema>;
+
+export const createAccountInputSchema = z.object({
+  name: z.string().min(1).max(60),
+});
+export type CreateAccountInput = z.infer<typeof createAccountInputSchema>;
+
 export const transactionSchema = z.object({
   id: z.string(),
   amount: z.number().int(),
   type: transactionTypeSchema,
   categoryId: z.string(),
+  accountId: z.string().nullable(),
   note: z.string().nullable(),
   occurredAt: z.string(),
   createdAt: z.string(),
@@ -45,6 +57,7 @@ export const createTransactionInputSchema = z.object({
   amount: z.number().int().positive(),
   type: transactionTypeSchema,
   categoryId: z.string(),
+  accountId: z.string(),
   note: z.string().max(280).optional(),
   occurredAt: z.string().datetime(),
 });

@@ -19,6 +19,7 @@ export async function transactionRoutes(app: FastifyInstance) {
         amount: body.amount,
         type: body.type,
         categoryId: body.categoryId,
+        accountId: body.accountId,
         note: body.note ?? null,
         occurredAt: new Date(body.occurredAt),
       },
@@ -39,6 +40,7 @@ function serializeTransaction(transaction: {
   amount: number;
   type: string;
   categoryId: string;
+  accountId: string | null;
   note: string | null;
   occurredAt: Date;
   createdAt: Date;
@@ -48,6 +50,7 @@ function serializeTransaction(transaction: {
     amount: transaction.amount,
     type: transaction.type,
     categoryId: transaction.categoryId,
+    accountId: transaction.accountId,
     note: transaction.note,
     occurredAt: transaction.occurredAt.toISOString(),
     createdAt: transaction.createdAt.toISOString(),

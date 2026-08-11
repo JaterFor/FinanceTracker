@@ -1,7 +1,7 @@
 export const ruTranslation = {
   auth: {
     signInTitle: 'Вход',
-    email: 'Email',
+    username: 'Логин',
     password: 'Пароль',
     signIn: 'Войти',
     signingIn: 'Вход…',
@@ -18,6 +18,10 @@ export const ruTranslation = {
     expense: 'Расход',
     income: 'Доход',
     category: 'Категория',
+    account: 'Счёт',
+    selectAccount: 'Выберите счёт',
+    newAccountPlaceholder: 'Новый счёт',
+    addAccount: 'Добавить счёт',
     note: 'Заметка',
     add: 'Добавить',
     adding: 'Добавление…',

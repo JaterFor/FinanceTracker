@@ -1,28 +1,34 @@
 import type { TransactionType } from '@finance-tracker/shared';
 import { type FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAccountsQuery, useCreateAccountMutation } from '../../../entities/account';
 import { useCategoriesQuery } from '../../../entities/category';
 import { useCreateTransactionMutation } from '../../../entities/transaction';
 
 export function AddTransactionForm() {
   const { t } = useTranslation();
   const { data: categories } = useCategoriesQuery();
+  const { data: accounts } = useAccountsQuery();
+  const { mutate: createAccount, isPending: isCreatingAccount } = useCreateAccountMutation();
   const { mutate, isPending } = useCreateTransactionMutation();
 
   const [amount, setAmount] = useState('');
   const [type, setType] = useState<TransactionType>('expense');
   const [categoryId, setCategoryId] = useState('');
+  const [accountId, setAccountId] = useState('');
+  const [newAccountName, setNewAccountName] = useState('');
   const [note, setNote] = useState('');
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    if (!categoryId) return;
+    if (!categoryId || !accountId) return;
 
     mutate(
       {
         amount: Math.round(Number(amount) * 100),
         type,
         categoryId,
+        accountId,
         note: note || undefined,
         occurredAt: new Date().toISOString(),
       },
@@ -30,6 +36,19 @@ export function AddTransactionForm() {
         onSuccess: () => {
           setAmount('');
           setNote('');
+        },
+      },
+    );
+  }
+
+  function handleAddAccount() {
+    if (!newAccountName.trim()) return;
+    createAccount(
+      { name: newAccountName.trim() },
+      {
+        onSuccess: (account) => {
+          setNewAccountName('');
+          setAccountId(account.id);
         },
       },
     );
@@ -70,6 +89,30 @@ export function AddTransactionForm() {
             {category.name}
           </button>
         ))}
+      </div>
+      <label>
+        {t('addTransaction.account')}
+        <select value={accountId} onChange={(event) => setAccountId(event.target.value)} required>
+          <option value="" disabled>
+            {t('addTransaction.selectAccount')}
+          </option>
+          {accounts?.map((account) => (
+            <option key={account.id} value={account.id}>
+              {account.name}
+            </option>
+          ))}
+        </select>
+      </label>
+      <div className="inline-form">
+        <input
+          type="text"
+          placeholder={t('addTransaction.newAccountPlaceholder')}
+          value={newAccountName}
+          onChange={(event) => setNewAccountName(event.target.value)}
+        />
+        <button type="button" disabled={isCreatingAccount} onClick={handleAddAccount}>
+          {t('addTransaction.addAccount')}
+        </button>
       </div>
       <label>
         {t('addTransaction.note')}

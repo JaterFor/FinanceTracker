@@ -7,7 +7,7 @@ export async function authRoutes(app: FastifyInstance) {
   app.post('/login', async (request, reply) => {
     const body = loginInputSchema.parse(request.body);
 
-    const user = await prisma.user.findUnique({ where: { email: body.email } });
+    const user = await prisma.user.findUnique({ where: { username: body.username } });
     if (!user) {
       return reply.code(401).send({ error: 'Invalid credentials' });
     }
@@ -18,6 +18,6 @@ export async function authRoutes(app: FastifyInstance) {
     }
 
     const token = app.jwt.sign({ sub: user.id });
-    return { token, user: { id: user.id, email: user.email } };
+    return { token, user: { id: user.id, username: user.username } };
   });
 }
