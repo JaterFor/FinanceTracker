@@ -1,5 +1,6 @@
 import type { Category, Transaction } from '@finance-tracker/shared';
 import { useTranslation } from 'react-i18next';
+import { formatAmount } from '../../../shared/lib';
 import { type ChartPeriod, useExpenseBreakdown } from '../model/use-expense-breakdown';
 
 const RADIUS = 40;
@@ -74,7 +75,7 @@ export function ExpenseChart({
               return circle;
             })}
             <text x="50" y="47" textAnchor="middle" className="chart-total-amount">
-              {(total / 100).toFixed(0)}
+              {Math.round(total / 100)} ₽
             </text>
             <text x="50" y="60" textAnchor="middle" className="chart-total-label">
               {t('expenseChart.total')}
@@ -88,7 +89,7 @@ export function ExpenseChart({
                   {slice.icon}
                 </span>
                 <span className="chart-legend-name">{slice.name}</span>
-                <span className="chart-legend-amount">{(slice.amount / 100).toFixed(2)}</span>
+                <span className="chart-legend-amount">{formatAmount(slice.amount)}</span>
               </li>
             ))}
           </ul>

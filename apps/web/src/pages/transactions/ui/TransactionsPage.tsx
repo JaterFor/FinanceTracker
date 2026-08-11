@@ -4,7 +4,7 @@ import { useSessionStore } from '../../../entities/session';
 import { useDeleteTransactionMutation, useTransactionsQuery } from '../../../entities/transaction';
 import { AddTransactionForm } from '../../../features/add-transaction';
 import { ExpenseChart } from '../../../features/expense-chart';
-import { pushToast } from '../../../shared/lib';
+import { formatAmount, pushToast } from '../../../shared/lib';
 
 export function TransactionsPage() {
   const { t } = useTranslation();
@@ -16,6 +16,7 @@ export function TransactionsPage() {
   const categoryById = new Map(categories?.map((category) => [category.id, category]));
 
   function handleDelete(id: string) {
+    if (!window.confirm(t('transactions.confirmDelete'))) return;
     deleteTransaction(id, {
       onSuccess: () => pushToast('success', t('transactions.deleted')),
       onError: () => pushToast('error', t('transactions.deleteFailed')),
@@ -57,7 +58,7 @@ export function TransactionsPage() {
                   className={transaction.type === 'income' ? 'amount-income' : 'amount-expense'}
                 >
                   {transaction.type === 'income' ? '+' : '-'}
-                  {(transaction.amount / 100).toFixed(2)}
+                  {formatAmount(Math.abs(transaction.amount))}
                 </span>
                 <span className="transaction-note">
                   {transaction.note ?? t('transactions.noNote')}

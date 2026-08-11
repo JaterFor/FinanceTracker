@@ -15,6 +15,7 @@ export const ruTranslation = {
     delete: 'Удалить',
     deleted: 'Транзакция удалена',
     deleteFailed: 'Не удалось удалить транзакцию',
+    confirmDelete: 'Удалить эту транзакцию?',
   },
   addTransaction: {
     amount: 'Сумма',
@@ -22,6 +23,7 @@ export const ruTranslation = {
     expense: 'Расход',
     income: 'Доход',
     category: 'Категория',
+    date: 'Дата',
     account: 'Счёт',
     selectAccount: 'Выберите счёт',
     newAccountPlaceholder: 'Новый счёт',

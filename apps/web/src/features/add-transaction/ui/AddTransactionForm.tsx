@@ -6,6 +6,12 @@ import { useCategoriesQuery } from '../../../entities/category';
 import { useCreateTransactionMutation } from '../../../entities/transaction';
 import { pushToast } from '../../../shared/lib';
 
+function todayInputValue(): string {
+  const now = new Date();
+  const offset = now.getTimezoneOffset();
+  return new Date(now.getTime() - offset * 60000).toISOString().slice(0, 10);
+}
+
 export function AddTransactionForm() {
   const { t } = useTranslation();
   const { data: categories } = useCategoriesQuery();
@@ -19,6 +25,7 @@ export function AddTransactionForm() {
   const [accountId, setAccountId] = useState('');
   const [newAccountName, setNewAccountName] = useState('');
   const [note, setNote] = useState('');
+  const [date, setDate] = useState(todayInputValue);
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -31,7 +38,7 @@ export function AddTransactionForm() {
         categoryId,
         accountId,
         note: note || undefined,
-        occurredAt: new Date().toISOString(),
+        occurredAt: new Date(`${date}T12:00:00`).toISOString(),
       },
       {
         onSuccess: () => {
@@ -123,6 +130,16 @@ export function AddTransactionForm() {
           {t('addTransaction.addAccount')}
         </button>
       </div>
+      <label>
+        {t('addTransaction.date')}
+        <input
+          type="date"
+          value={date}
+          max={todayInputValue()}
+          onChange={(event) => setDate(event.target.value)}
+          required
+        />
+      </label>
       <label>
         {t('addTransaction.note')}
         <input type="text" value={note} onChange={(event) => setNote(event.target.value)} />
