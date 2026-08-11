@@ -4,9 +4,11 @@
     "slug": "finance-tracker",
     "version": "1.0.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#121212",
     "android": {
-      "package": "com.financetracker.app"
+      "package": "com.financetracker.app",
+      "backgroundColor": "#121212"
     }
   }
 }

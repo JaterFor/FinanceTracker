@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useCategoriesQuery } from '../../../entities/category';
 import { useCreateTransactionMutation } from '../../../entities/transaction';
+import { colors } from '../../../shared/ui';
 
 export function AddTransactionForm() {
   const { data: categories } = useCategoriesQuery();
@@ -37,6 +38,7 @@ export function AddTransactionForm() {
     <View style={styles.form}>
       <TextInput
         placeholder="Amount"
+        placeholderTextColor={colors.textMuted}
         keyboardType="decimal-pad"
         value={amount}
         onChangeText={setAmount}
@@ -69,10 +71,17 @@ export function AddTransactionForm() {
         ))}
       </View>
 
-      <TextInput placeholder="Note" value={note} onChangeText={setNote} style={styles.input} />
+      <TextInput
+        placeholder="Note"
+        placeholderTextColor={colors.textMuted}
+        value={note}
+        onChangeText={setNote}
+        style={styles.input}
+      />
 
       <Button
         title={isPending ? 'Adding…' : 'Add transaction'}
+        color={colors.primary}
         disabled={isPending || !categoryId || !amount}
         onPress={handleSubmit}
       />
@@ -84,19 +93,21 @@ const styles = StyleSheet.create({
   form: { gap: 12 },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.border,
     borderRadius: 8,
     padding: 12,
+    color: colors.text,
+    backgroundColor: colors.surface,
   },
   row: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   chip: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.border,
     borderRadius: 16,
     paddingVertical: 6,
     paddingHorizontal: 12,
   },
-  chipActive: { backgroundColor: '#222', borderColor: '#222' },
-  chipText: { color: '#222' },
-  chipTextActive: { color: '#fff' },
+  chipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
+  chipText: { color: colors.text },
+  chipTextActive: { color: colors.primaryText },
 });

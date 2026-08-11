@@ -1,5 +1,7 @@
-import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { LoginForm } from '../../../features/login';
+import { colors } from '../../../shared/ui';
 
 export function LoginScreen() {
   return (
@@ -11,6 +13,6 @@ export function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, padding: 16, gap: 16 },
-  title: { fontSize: 24, fontWeight: '600' },
+  screen: { flex: 1, padding: 16, gap: 16, backgroundColor: colors.background },
+  title: { fontSize: 24, fontWeight: '600', color: colors.text },
 });

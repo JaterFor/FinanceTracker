@@ -31,8 +31,9 @@ don't pre-build abstractions for functionality that isn't there yet.
   this); still no force-push/history-rewrite without asking.
 - **Branching: trunk-based.** Short-lived branches off `main`, merged back quickly, no
   long-lived feature branches.
-- **Remote: public GitHub repo.** Because it's public, `.env`/`*.pem`/secrets must never
-  be committed (see root `.gitignore`) — only `.env.example` files are tracked.
+- **Remote: public GitHub repo** — <https://github.com/JaterFor/FinanceTracker>. Because
+  it's public, `.env`/`*.pem`/secrets must never be committed (see root `.gitignore`) —
+  only `.env.example` files are tracked.
 - Env vars: each app has its own `.env.example` (`apps/api`, `apps/web`, `apps/mobile`);
   root `.env.example` is only for the local-dev `docker-compose.yml` Postgres container.
 
