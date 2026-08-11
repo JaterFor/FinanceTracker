@@ -21,10 +21,25 @@ body {
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
+h1,
+p,
+ul {
+  margin: 0;
+}
+
 main {
   max-width: 480px;
   margin: 0 auto;
   padding: 24px 16px 88px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 h1 {
@@ -35,7 +50,8 @@ a {
   color: var(--color-primary);
 }
 
-label {
+label,
+.field-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -90,7 +106,6 @@ form {
 ul {
   list-style: none;
   padding: 0;
-  margin: 16px 0 0;
 }
 
 li {
@@ -219,14 +234,12 @@ p[role="alert"] {
   border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 32px;
-}
-
-.auth-card h1 {
-  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .expense-chart {
-  margin: 20px 0;
   padding: 16px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -403,12 +416,9 @@ p[role="alert"] {
 
 .page-header-with-back {
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 12px;
-}
-
-.page-header-with-back h1 {
-  margin: 0;
 }
 
 .back-link {

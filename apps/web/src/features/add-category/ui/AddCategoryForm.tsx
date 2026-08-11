@@ -52,32 +52,36 @@ export function AddCategoryForm() {
           <option value="income">{t('addCategory.income')}</option>
         </select>
       </label>
-      <span>{t('addCategory.icon')}</span>
-      <div className="category-grid">
-        {CATEGORY_ICON_KEYS.map((key) => (
-          <button
-            key={key}
-            type="button"
-            className={key === icon ? 'icon-swatch selected' : 'icon-swatch'}
-            style={{ backgroundColor: color }}
-            onClick={() => setIcon(key)}
-          >
-            <CategoryIcon name={key} />
-          </button>
-        ))}
+      <div className="field-group">
+        <span>{t('addCategory.icon')}</span>
+        <div className="category-grid">
+          {CATEGORY_ICON_KEYS.map((key) => (
+            <button
+              key={key}
+              type="button"
+              className={key === icon ? 'icon-swatch selected' : 'icon-swatch'}
+              style={{ backgroundColor: color }}
+              onClick={() => setIcon(key)}
+            >
+              <CategoryIcon name={key} />
+            </button>
+          ))}
+        </div>
       </div>
-      <span>{t('addCategory.color')}</span>
-      <div className="color-grid">
-        {CATEGORY_COLORS.map((swatch) => (
-          <button
-            key={swatch}
-            type="button"
-            className={swatch === color ? 'color-swatch selected' : 'color-swatch'}
-            style={{ backgroundColor: swatch }}
-            onClick={() => setColor(swatch)}
-            aria-label={swatch}
-          />
-        ))}
+      <div className="field-group">
+        <span>{t('addCategory.color')}</span>
+        <div className="color-grid">
+          {CATEGORY_COLORS.map((swatch) => (
+            <button
+              key={swatch}
+              type="button"
+              className={swatch === color ? 'color-swatch selected' : 'color-swatch'}
+              style={{ backgroundColor: swatch }}
+              onClick={() => setColor(swatch)}
+              aria-label={swatch}
+            />
+          ))}
+        </div>
       </div>
       <button type="submit" disabled={isPending}>
         {isPending ? t('addCategory.adding') : t('addCategory.add')}
