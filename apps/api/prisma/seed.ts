@@ -20,10 +20,10 @@ async function main() {
     icon: string;
     color: string;
   }> = [
-    { name: 'Salary', type: 'income', icon: '💰', color: '#f1c40f' },
-    { name: 'Groceries', type: 'expense', icon: '🛒', color: '#2ecc71' },
-    { name: 'Transport', type: 'expense', icon: '🚌', color: '#3498db' },
-    { name: 'Other', type: 'expense', icon: '📦', color: '#95a5a6' },
+    { name: 'Зарплата', type: 'income', icon: '💰', color: '#f1c40f' },
+    { name: 'Продукты', type: 'expense', icon: '🛒', color: '#2ecc71' },
+    { name: 'Транспорт', type: 'expense', icon: '🚌', color: '#3498db' },
+    { name: 'Другое', type: 'expense', icon: '📦', color: '#95a5a6' },
   ];
 
   for (const category of categories) {
