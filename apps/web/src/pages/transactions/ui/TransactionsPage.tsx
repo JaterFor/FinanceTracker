@@ -3,6 +3,7 @@ import { useCategoriesQuery } from '../../../entities/category';
 import { useSessionStore } from '../../../entities/session';
 import { useTransactionsQuery } from '../../../entities/transaction';
 import { AddTransactionForm } from '../../../features/add-transaction';
+import { ExpenseChart } from '../../../features/expense-chart';
 
 export function TransactionsPage() {
   const { t } = useTranslation();
@@ -23,6 +24,8 @@ export function TransactionsPage() {
           </button>
         </p>
       </header>
+
+      <ExpenseChart transactions={transactions ?? []} categories={categories ?? []} />
 
       <AddTransactionForm />
 

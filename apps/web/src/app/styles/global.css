@@ -179,3 +179,98 @@ p[role="alert"] {
 .auth-card h1 {
   margin-top: 0;
 }
+
+.expense-chart {
+  margin: 20px 0;
+  padding: 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.chart-period-switch {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.chart-period {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.chart-period.active {
+  background: var(--color-primary);
+  color: var(--color-primary-text);
+  border-color: var(--color-primary);
+}
+
+.chart-empty {
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.chart-body {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.chart-donut {
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+}
+
+.chart-donut circle {
+  transition: stroke-dasharray 0.3s ease;
+}
+
+.chart-total-amount {
+  fill: var(--color-text);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.chart-total-label {
+  fill: var(--color-text-muted);
+  font-size: 7px;
+}
+
+.chart-legend {
+  flex: 1;
+  min-width: 160px;
+  margin: 0;
+}
+
+.chart-legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.chart-legend-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.chart-legend-name {
+  flex: 1;
+  font-size: 14px;
+}
+
+.chart-legend-amount {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}

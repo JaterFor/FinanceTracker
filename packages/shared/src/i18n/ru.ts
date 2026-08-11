@@ -26,4 +26,11 @@ export const ruTranslation = {
     add: 'Добавить',
     adding: 'Добавление…',
   },
+  expenseChart: {
+    week: 'Неделя',
+    month: 'Месяц',
+    allTime: 'Всё время',
+    total: 'Итого',
+    noExpenses: 'За этот период расходов не было',
+  },
 } as const;
