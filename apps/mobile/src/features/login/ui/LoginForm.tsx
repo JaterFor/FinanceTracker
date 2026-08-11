@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { colors } from '../../../shared/ui';
 import { useLogin } from '../model/use-login';
 
 export function LoginForm() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { mutate, isPending, error } = useLogin();
@@ -11,7 +13,7 @@ export function LoginForm() {
   return (
     <View style={styles.form}>
       <TextInput
-        placeholder="Email"
+        placeholder={t('auth.email')}
         placeholderTextColor={colors.textMuted}
         autoCapitalize="none"
         keyboardType="email-address"
@@ -20,7 +22,7 @@ export function LoginForm() {
         style={styles.input}
       />
       <TextInput
-        placeholder="Password"
+        placeholder={t('auth.password')}
         placeholderTextColor={colors.textMuted}
         secureTextEntry
         value={password}
@@ -28,7 +30,7 @@ export function LoginForm() {
         style={styles.input}
       />
       <Button
-        title={isPending ? 'Signing in…' : 'Sign in'}
+        title={isPending ? t('auth.signingIn') : t('auth.signIn')}
         color={colors.primary}
         disabled={isPending}
         onPress={() => mutate({ email, password })}

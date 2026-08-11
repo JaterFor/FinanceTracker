@@ -14,11 +14,16 @@ async function main() {
     create: { email, passwordHash },
   });
 
-  const categories: Array<{ name: string; type: 'income' | 'expense' }> = [
-    { name: 'Salary', type: 'income' },
-    { name: 'Groceries', type: 'expense' },
-    { name: 'Transport', type: 'expense' },
-    { name: 'Other', type: 'expense' },
+  const categories: Array<{
+    name: string;
+    type: 'income' | 'expense';
+    icon: string;
+    color: string;
+  }> = [
+    { name: 'Salary', type: 'income', icon: '💰', color: '#f1c40f' },
+    { name: 'Groceries', type: 'expense', icon: '🛒', color: '#2ecc71' },
+    { name: 'Transport', type: 'expense', icon: '🚌', color: '#3498db' },
+    { name: 'Other', type: 'expense', icon: '📦', color: '#95a5a6' },
   ];
 
   for (const category of categories) {

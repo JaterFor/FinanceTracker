@@ -1,11 +1,18 @@
 import type { TransactionType } from '@finance-tracker/shared';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useCategoriesQuery } from '../../../entities/category';
 import { useCreateTransactionMutation } from '../../../entities/transaction';
 import { colors } from '../../../shared/ui';
 
+const typeLabels: Record<TransactionType, 'addTransaction.expense' | 'addTransaction.income'> = {
+  expense: 'addTransaction.expense',
+  income: 'addTransaction.income',
+};
+
 export function AddTransactionForm() {
+  const { t } = useTranslation();
   const { data: categories } = useCategoriesQuery();
   const { mutate, isPending } = useCreateTransactionMutation();
 
@@ -37,7 +44,7 @@ export function AddTransactionForm() {
   return (
     <View style={styles.form}>
       <TextInput
-        placeholder="Amount"
+        placeholder={t('addTransaction.amount')}
         placeholderTextColor={colors.textMuted}
         keyboardType="decimal-pad"
         value={amount}
@@ -52,27 +59,41 @@ export function AddTransactionForm() {
             onPress={() => setType(option)}
             style={[styles.chip, type === option && styles.chipActive]}
           >
-            <Text style={type === option ? styles.chipTextActive : styles.chipText}>{option}</Text>
-          </Pressable>
-        ))}
-      </View>
-
-      <View style={styles.row}>
-        {categories?.map((category) => (
-          <Pressable
-            key={category.id}
-            onPress={() => setCategoryId(category.id)}
-            style={[styles.chip, categoryId === category.id && styles.chipActive]}
-          >
-            <Text style={categoryId === category.id ? styles.chipTextActive : styles.chipText}>
-              {category.name}
+            <Text style={type === option ? styles.chipTextActive : styles.chipText}>
+              {t(typeLabels[option])}
             </Text>
           </Pressable>
         ))}
       </View>
 
+      <View style={styles.categoryGrid}>
+        {categories?.map((category) => {
+          const selected = categoryId === category.id;
+          return (
+            <Pressable
+              key={category.id}
+              onPress={() => setCategoryId(category.id)}
+              style={styles.categoryBadge}
+            >
+              <View
+                style={[
+                  styles.categoryIcon,
+                  { backgroundColor: category.color },
+                  selected && styles.categoryIconSelected,
+                ]}
+              >
+                <Text style={styles.categoryIconText}>{category.icon}</Text>
+              </View>
+              <Text style={selected ? styles.categoryNameSelected : styles.categoryName}>
+                {category.name}
+              </Text>
+            </Pressable>
+          );
+        })}
+      </View>
+
       <TextInput
-        placeholder="Note"
+        placeholder={t('addTransaction.note')}
         placeholderTextColor={colors.textMuted}
         value={note}
         onChangeText={setNote}
@@ -80,7 +101,7 @@ export function AddTransactionForm() {
       />
 
       <Button
-        title={isPending ? 'Adding…' : 'Add transaction'}
+        title={isPending ? t('addTransaction.adding') : t('addTransaction.add')}
         color={colors.primary}
         disabled={isPending || !categoryId || !amount}
         onPress={handleSubmit}
@@ -110,4 +131,18 @@ const styles = StyleSheet.create({
   chipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
   chipText: { color: colors.text },
   chipTextActive: { color: colors.primaryText },
+  categoryGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
+  categoryBadge: { alignItems: 'center', width: 64, gap: 4 },
+  categoryIcon: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+    opacity: 0.55,
+  },
+  categoryIconSelected: { opacity: 1, borderWidth: 2, borderColor: colors.text },
+  categoryIconText: { fontSize: 20 },
+  categoryName: { fontSize: 12, color: colors.textMuted, textAlign: 'center' },
+  categoryNameSelected: { fontSize: 12, color: colors.text, textAlign: 'center' },
 });

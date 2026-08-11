@@ -1,7 +1,9 @@
 import { type FormEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLogin } from '../model/use-login';
 
 export function LoginForm() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { mutate, isPending, error } = useLogin();
@@ -14,7 +16,7 @@ export function LoginForm() {
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Email
+        {t('auth.email')}
         <input
           type="email"
           value={email}
@@ -23,7 +25,7 @@ export function LoginForm() {
         />
       </label>
       <label>
-        Password
+        {t('auth.password')}
         <input
           type="password"
           value={password}
@@ -32,7 +34,7 @@ export function LoginForm() {
         />
       </label>
       <button type="submit" disabled={isPending}>
-        {isPending ? 'Signing in…' : 'Sign in'}
+        {isPending ? t('auth.signingIn') : t('auth.signIn')}
       </button>
       {error ? <p role="alert">{error.message}</p> : null}
     </form>
