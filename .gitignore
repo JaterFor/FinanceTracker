@@ -1,0 +1,25 @@
+node_modules/
+dist/
+build/
+.expo/
+.turbo/
+
+# env / secrets
+.env
+.env.*
+!.env.example
+*.pem
+
+# db
+apps/api/prisma/dev.db
+postgres-data/
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS / editor
+.DS_Store
+.vscode/*
+!.vscode/extensions.json

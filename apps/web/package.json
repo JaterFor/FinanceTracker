@@ -1,0 +1,30 @@
+{
+  "name": "@finance-tracker/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "fsd": "steiger ./src"
+  },
+  "dependencies": {
+    "@finance-tracker/shared": "workspace:*",
+    "@tanstack/react-query": "5.101.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-router-dom": "7.18.2",
+    "zustand": "5.0.14"
+  },
+  "devDependencies": {
+    "@feature-sliced/steiger-plugin": "0.7.0",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "@vitejs/plugin-react": "6.0.5",
+    "steiger": "0.6.0",
+    "typescript": "7.0.2",
+    "vite": "8.2.1"
+  }
+}

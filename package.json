@@ -1,0 +1,21 @@
+{
+  "name": "finance-tracker",
+  "private": true,
+  "packageManager": "pnpm@11.21.0",
+  "scripts": {
+    "dev:api": "pnpm --filter @finance-tracker/api dev",
+    "dev:web": "pnpm --filter @finance-tracker/web dev",
+    "dev:mobile": "pnpm --filter @finance-tracker/mobile start",
+    "build": "pnpm -r --if-present run build",
+    "typecheck": "pnpm -r run typecheck",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "fsd:web": "pnpm --filter @finance-tracker/web fsd",
+    "fsd:mobile": "pnpm --filter @finance-tracker/mobile fsd"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.8",
+    "typescript": "7.0.2"
+  }
+}

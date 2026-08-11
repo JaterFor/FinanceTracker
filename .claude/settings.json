@@ -1,0 +1,15 @@
+{
+  "outputStyle": "Pohuy",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "CLAUDE_DIR=\"${CLAUDE_PROJECT_DIR}/.claude\" bash \"${CLAUDE_PROJECT_DIR}/.claude/hooks/style-reminder.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}
