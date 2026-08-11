@@ -1,6 +1,7 @@
 import type { TransactionType } from '@finance-tracker/shared';
 import { type FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { useAccountsQuery, useCreateAccountMutation } from '../../../entities/account';
 import { useCategoriesQuery } from '../../../entities/category';
 import { useCreateTransactionMutation } from '../../../entities/transaction';
@@ -14,6 +15,7 @@ function todayInputValue(): string {
 
 export function AddTransactionForm() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { data: categories } = useCategoriesQuery();
   const { data: accounts } = useAccountsQuery();
   const { mutate: createAccount, isPending: isCreatingAccount } = useCreateAccountMutation();
@@ -42,9 +44,8 @@ export function AddTransactionForm() {
       },
       {
         onSuccess: () => {
-          setAmount('');
-          setNote('');
           pushToast('success', t('addTransaction.added'));
+          navigate('/');
         },
         onError: () => {
           pushToast('error', t('addTransaction.addFailed'));

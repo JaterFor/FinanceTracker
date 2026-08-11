@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { useCategoriesQuery } from '../../../entities/category';
 import { useSessionStore } from '../../../entities/session';
 import { useDeleteTransactionMutation, useTransactionsQuery } from '../../../entities/transaction';
-import { AddTransactionForm } from '../../../features/add-transaction';
 import { ExpenseChart } from '../../../features/expense-chart';
 import { formatAmount, pushToast } from '../../../shared/lib';
 
@@ -36,8 +36,6 @@ export function TransactionsPage() {
       </header>
 
       <ExpenseChart transactions={transactions ?? []} categories={categories ?? []} />
-
-      <AddTransactionForm />
 
       {isLoading ? (
         <p>{t('transactions.loading')}</p>
@@ -76,6 +74,10 @@ export function TransactionsPage() {
           })}
         </ul>
       )}
+
+      <Link to="/add" className="fab" aria-label={t('addTransaction.add')}>
+        +
+      </Link>
     </main>
   );
 }

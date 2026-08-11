@@ -18,6 +18,8 @@ export const ruTranslation = {
     confirmDelete: 'Удалить эту транзакцию?',
   },
   addTransaction: {
+    title: 'Новая транзакция',
+    back: 'Назад',
     amount: 'Сумма',
     type: 'Тип',
     expense: 'Расход',

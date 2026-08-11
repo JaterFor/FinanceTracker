@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useSessionStore } from '../entities/session';
+import { AddTransactionPage } from '../pages/add-transaction';
 import { LoginPage } from '../pages/login';
 import { TransactionsPage } from '../pages/transactions';
 import { ToastContainer } from '../shared/ui';
@@ -34,6 +35,14 @@ export function App() {
             element={
               <RequireAuth>
                 <TransactionsPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/add"
+            element={
+              <RequireAuth>
+                <AddTransactionPage />
               </RequireAuth>
             }
           />
