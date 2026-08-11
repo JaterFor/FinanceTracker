@@ -1,1 +1,1 @@
-export { useCategoriesQuery } from './model/queries';
+export { useCategoriesQuery, useCreateCategoryMutation } from './model/queries';

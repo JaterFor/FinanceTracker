@@ -5,6 +5,7 @@ import { useSessionStore } from '../../../entities/session';
 import { useDeleteTransactionMutation, useTransactionsQuery } from '../../../entities/transaction';
 import { ExpenseChart } from '../../../features/expense-chart';
 import { formatAmount, pushToast } from '../../../shared/lib';
+import { CategoryIcon } from '../../../shared/ui';
 
 export function TransactionsPage() {
   const { t } = useTranslation();
@@ -49,7 +50,7 @@ export function TransactionsPage() {
               <li key={transaction.id} className="transaction-row">
                 {category ? (
                   <span className="transaction-icon" style={{ backgroundColor: category.color }}>
-                    {category.icon}
+                    <CategoryIcon name={category.icon} size={14} />
                   </span>
                 ) : null}
                 <span

@@ -1,11 +1,13 @@
 import type { TransactionType } from '@finance-tracker/shared';
+import { Plus } from 'lucide-react';
 import { type FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAccountsQuery, useCreateAccountMutation } from '../../../entities/account';
 import { useCategoriesQuery } from '../../../entities/category';
 import { useCreateTransactionMutation } from '../../../entities/transaction';
 import { pushToast } from '../../../shared/lib';
+import { CategoryIcon } from '../../../shared/ui';
 
 function todayInputValue(): string {
   const now = new Date();
@@ -101,11 +103,17 @@ export function AddTransactionForm() {
             onClick={() => setCategoryId(category.id)}
           >
             <span className="category-icon" style={{ backgroundColor: category.color }}>
-              {category.icon}
+              <CategoryIcon name={category.icon} />
             </span>
             {category.name}
           </button>
         ))}
+        <Link to="/categories/new" className="category-badge">
+          <span className="category-icon category-icon-add">
+            <Plus />
+          </span>
+          {t('addTransaction.addCategory')}
+        </Link>
       </div>
       <label>
         {t('addTransaction.account')}

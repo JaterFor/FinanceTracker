@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useSessionStore } from '../entities/session';
+import { AddCategoryPage } from '../pages/add-category';
 import { AddTransactionPage } from '../pages/add-transaction';
 import { LoginPage } from '../pages/login';
 import { TransactionsPage } from '../pages/transactions';
@@ -43,6 +44,14 @@ export function App() {
             element={
               <RequireAuth>
                 <AddTransactionPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/categories/new"
+            element={
+              <RequireAuth>
+                <AddCategoryPage />
               </RequireAuth>
             }
           />

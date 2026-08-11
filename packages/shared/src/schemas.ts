@@ -30,6 +30,14 @@ export const categorySchema = z.object({
 });
 export type Category = z.infer<typeof categorySchema>;
 
+export const createCategoryInputSchema = z.object({
+  name: z.string().min(1).max(60),
+  type: transactionTypeSchema,
+  icon: z.string().min(1),
+  color: z.string().min(1),
+});
+export type CreateCategoryInput = z.infer<typeof createCategoryInputSchema>;
+
 export const accountSchema = z.object({
   id: z.string(),
   name: z.string(),
