@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useAccountsQuery, useCreateAccountMutation } from '../../../entities/account';
 import { useCategoriesQuery } from '../../../entities/category';
 import { useCreateTransactionMutation } from '../../../entities/transaction';
+import { pushToast } from '../../../shared/lib';
 
 export function AddTransactionForm() {
   const { t } = useTranslation();
@@ -36,6 +37,10 @@ export function AddTransactionForm() {
         onSuccess: () => {
           setAmount('');
           setNote('');
+          pushToast('success', t('addTransaction.added'));
+        },
+        onError: () => {
+          pushToast('error', t('addTransaction.addFailed'));
         },
       },
     );
@@ -49,6 +54,10 @@ export function AddTransactionForm() {
         onSuccess: (account) => {
           setNewAccountName('');
           setAccountId(account.id);
+          pushToast('success', t('addTransaction.accountAdded'));
+        },
+        onError: () => {
+          pushToast('error', t('addTransaction.accountAddFailed'));
         },
       },
     );

@@ -11,6 +11,10 @@ export const ruTranslation = {
     signOut: 'Выйти',
     loading: 'Загрузка…',
     noNote: 'без заметки',
+    empty: 'Пока нет ни одной транзакции',
+    delete: 'Удалить',
+    deleted: 'Транзакция удалена',
+    deleteFailed: 'Не удалось удалить транзакцию',
   },
   addTransaction: {
     amount: 'Сумма',
@@ -25,6 +29,10 @@ export const ruTranslation = {
     note: 'Заметка',
     add: 'Добавить',
     adding: 'Добавление…',
+    added: 'Транзакция добавлена',
+    addFailed: 'Не удалось добавить транзакцию',
+    accountAdded: 'Счёт добавлен',
+    accountAddFailed: 'Не удалось добавить счёт',
   },
   expenseChart: {
     week: 'Неделя',

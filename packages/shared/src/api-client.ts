@@ -39,7 +39,7 @@ export function createApiClient({ baseUrl, getToken }: ApiClientOptions): ApiCli
     const res = await fetch(`${baseUrl}${path}`, {
       ...init,
       headers: {
-        'Content-Type': 'application/json',
+        ...(init?.body ? { 'Content-Type': 'application/json' } : {}),
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
         ...init?.headers,
       },

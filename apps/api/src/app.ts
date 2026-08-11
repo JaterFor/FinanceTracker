@@ -24,7 +24,10 @@ declare module 'fastify' {
 export function buildApp() {
   const app = Fastify({ logger: true });
 
-  app.register(cors, { origin: env.CORS_ORIGIN });
+  app.register(cors, {
+    origin: env.CORS_ORIGIN,
+    methods: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  });
   app.register(jwt, { secret: env.JWT_SECRET });
 
   app.decorate('authenticate', async (request: FastifyRequest, reply: FastifyReply) => {
