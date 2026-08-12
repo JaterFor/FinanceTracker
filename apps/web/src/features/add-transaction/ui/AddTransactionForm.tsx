@@ -6,14 +6,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAccountsQuery, useCreateAccountMutation } from '../../../entities/account';
 import { useCategoriesQuery } from '../../../entities/category';
 import { useCreateTransactionMutation } from '../../../entities/transaction';
-import { pushToast } from '../../../shared/lib';
+import { pushToast, toDateInputValue } from '../../../shared/lib';
 import { CategoryIcon } from '../../../shared/ui';
-
-function todayInputValue(): string {
-  const now = new Date();
-  const offset = now.getTimezoneOffset();
-  return new Date(now.getTime() - offset * 60000).toISOString().slice(0, 10);
-}
 
 export function AddTransactionForm() {
   const { t } = useTranslation();
@@ -29,7 +23,7 @@ export function AddTransactionForm() {
   const [accountId, setAccountId] = useState('');
   const [newAccountName, setNewAccountName] = useState('');
   const [note, setNote] = useState('');
-  const [date, setDate] = useState(todayInputValue);
+  const [date, setDate] = useState(() => toDateInputValue(new Date()));
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -148,7 +142,7 @@ export function AddTransactionForm() {
         <input
           type="date"
           value={date}
-          max={todayInputValue()}
+          max={toDateInputValue(new Date())}
           onChange={(event) => setDate(event.target.value)}
           required
         />

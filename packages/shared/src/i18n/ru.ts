@@ -54,10 +54,13 @@ export const ruTranslation = {
     addFailed: 'Не удалось добавить категорию',
   },
   expenseChart: {
+    total: 'Итого',
+    noExpenses: 'За этот период расходов не было',
+  },
+  period: {
+    day: 'День',
     week: 'Неделя',
     month: 'Месяц',
     allTime: 'Всё время',
-    total: 'Итого',
-    noExpenses: 'За этот период расходов не было',
   },
 } as const;
