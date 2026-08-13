@@ -31,6 +31,10 @@ don't pre-build abstractions for functionality that isn't there yet.
   this); still no force-push/history-rewrite without asking.
 - **Branching: trunk-based.** Short-lived branches off `main`, merged back quickly, no
   long-lived feature branches.
+- **Parallel Claude Code sessions**: use `claude --worktree <name>` (or `-w`) per
+  concurrent task — each gets its own branch/checkout under `.claude/worktrees/`
+  (gitignored), so parallel sessions never touch the same files. Merge each worktree's
+  branch back to `main` like a normal short-lived branch when done.
 - **Remote: public GitHub repo** — <https://github.com/JaterFor/FinanceTracker>. Because
   it's public, `.env`/`*.pem`/secrets must never be committed (see root `.gitignore`) —
   only `.env.example` files are tracked.
