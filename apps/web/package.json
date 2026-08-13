@@ -7,8 +7,10 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit",
-    "fsd": "steiger ./src"
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json",
+    "fsd": "steiger ./src",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@finance-tracker/shared": "workspace:*",
@@ -23,6 +25,8 @@
   },
   "devDependencies": {
     "@feature-sliced/steiger-plugin": "0.7.0",
+    "@playwright/test": "^1.62.1",
+    "@types/node": "26.2.0",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
     "@vitejs/plugin-react": "6.0.5",
