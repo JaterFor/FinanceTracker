@@ -44,13 +44,7 @@ async function main() {
     }
   }
 
-  const defaultAccountName = 'Основной';
-  const existingAccount = await prisma.account.findFirst({ where: { name: defaultAccountName } });
-  if (!existingAccount) {
-    await prisma.account.create({ data: { name: defaultAccountName } });
-  }
-
-  console.log(`Seeded user "${username}", ${categories.length} categories, and a default account.`);
+  console.log(`Seeded user "${username}" and ${categories.length} categories.`);
 }
 
 main()

@@ -3,7 +3,6 @@ import { Plus } from 'lucide-react';
 import { type FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAccountsQuery, useCreateAccountMutation } from '../../../entities/account';
 import { useCategoriesQuery } from '../../../entities/category';
 import { useCreateTransactionMutation } from '../../../entities/transaction';
 import { pushToast, toDateInputValue } from '../../../shared/lib';
@@ -13,28 +12,23 @@ export function AddTransactionForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { data: categories } = useCategoriesQuery();
-  const { data: accounts } = useAccountsQuery();
-  const { mutate: createAccount, isPending: isCreatingAccount } = useCreateAccountMutation();
   const { mutate, isPending } = useCreateTransactionMutation();
 
   const [amount, setAmount] = useState('');
   const [type, setType] = useState<TransactionType>('expense');
   const [categoryId, setCategoryId] = useState('');
-  const [accountId, setAccountId] = useState('');
-  const [newAccountName, setNewAccountName] = useState('');
   const [note, setNote] = useState('');
   const [date, setDate] = useState(() => toDateInputValue(new Date()));
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    if (!categoryId || !accountId) return;
+    if (!categoryId) return;
 
     mutate(
       {
         amount: Math.round(Number(amount) * 100),
         type,
         categoryId,
-        accountId,
         note: note || undefined,
         occurredAt: new Date(`${date}T12:00:00`).toISOString(),
       },
@@ -45,23 +39,6 @@ export function AddTransactionForm() {
         },
         onError: () => {
           pushToast('error', t('addTransaction.addFailed'));
-        },
-      },
-    );
-  }
-
-  function handleAddAccount() {
-    if (!newAccountName.trim()) return;
-    createAccount(
-      { name: newAccountName.trim() },
-      {
-        onSuccess: (account) => {
-          setNewAccountName('');
-          setAccountId(account.id);
-          pushToast('success', t('addTransaction.accountAdded'));
-        },
-        onError: () => {
-          pushToast('error', t('addTransaction.accountAddFailed'));
         },
       },
     );
@@ -109,32 +86,6 @@ export function AddTransactionForm() {
             </span>
             {t('addTransaction.addCategory')}
           </Link>
-        </div>
-      </div>
-      <div className="field-group">
-        <label>
-          {t('addTransaction.account')}
-          <select value={accountId} onChange={(event) => setAccountId(event.target.value)} required>
-            <option value="" disabled>
-              {t('addTransaction.selectAccount')}
-            </option>
-            {accounts?.map((account) => (
-              <option key={account.id} value={account.id}>
-                {account.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <div className="inline-form">
-          <input
-            type="text"
-            placeholder={t('addTransaction.newAccountPlaceholder')}
-            value={newAccountName}
-            onChange={(event) => setNewAccountName(event.target.value)}
-          />
-          <button type="button" disabled={isCreatingAccount} onClick={handleAddAccount}>
-            {t('addTransaction.addAccount')}
-          </button>
         </div>
       </div>
       <label>

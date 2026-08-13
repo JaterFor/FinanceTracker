@@ -2,10 +2,9 @@ import type { TransactionType } from '@finance-tracker/shared';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import { useAccountsQuery, useCreateAccountMutation } from '../../../entities/account';
 import { useCategoriesQuery } from '../../../entities/category';
 import { useCreateTransactionMutation } from '../../../entities/transaction';
-import { colors } from '../../../shared/ui';
+import { CategoryIcon, colors } from '../../../shared/ui';
 
 const typeLabels: Record<TransactionType, 'addTransaction.expense' | 'addTransaction.income'> = {
   expense: 'addTransaction.expense',
@@ -15,26 +14,21 @@ const typeLabels: Record<TransactionType, 'addTransaction.expense' | 'addTransac
 export function AddTransactionForm() {
   const { t } = useTranslation();
   const { data: categories } = useCategoriesQuery();
-  const { data: accounts } = useAccountsQuery();
-  const { mutate: createAccount, isPending: isCreatingAccount } = useCreateAccountMutation();
   const { mutate, isPending } = useCreateTransactionMutation();
 
   const [amount, setAmount] = useState('');
   const [type, setType] = useState<TransactionType>('expense');
   const [categoryId, setCategoryId] = useState('');
-  const [accountId, setAccountId] = useState('');
-  const [newAccountName, setNewAccountName] = useState('');
   const [note, setNote] = useState('');
 
   function handleSubmit() {
-    if (!categoryId || !accountId || !amount) return;
+    if (!categoryId || !amount) return;
 
     mutate(
       {
         amount: Math.round(Number(amount) * 100),
         type,
         categoryId,
-        accountId,
         note: note || undefined,
         occurredAt: new Date().toISOString(),
       },
@@ -42,19 +36,6 @@ export function AddTransactionForm() {
         onSuccess: () => {
           setAmount('');
           setNote('');
-        },
-      },
-    );
-  }
-
-  function handleAddAccount() {
-    if (!newAccountName.trim()) return;
-    createAccount(
-      { name: newAccountName.trim() },
-      {
-        onSuccess: (account) => {
-          setNewAccountName('');
-          setAccountId(account.id);
         },
       },
     );
@@ -101,7 +82,7 @@ export function AddTransactionForm() {
                   selected && styles.categoryIconSelected,
                 ]}
               >
-                <Text style={styles.categoryIconText}>{category.icon}</Text>
+                <CategoryIcon name={category.icon} size={20} />
               </View>
               <Text style={selected ? styles.categoryNameSelected : styles.categoryName}>
                 {category.name}
@@ -109,37 +90,6 @@ export function AddTransactionForm() {
             </Pressable>
           );
         })}
-      </View>
-
-      <View style={styles.row}>
-        {accounts?.map((account) => {
-          const selected = accountId === account.id;
-          return (
-            <Pressable
-              key={account.id}
-              onPress={() => setAccountId(account.id)}
-              style={[styles.chip, selected && styles.chipActive]}
-            >
-              <Text style={selected ? styles.chipTextActive : styles.chipText}>{account.name}</Text>
-            </Pressable>
-          );
-        })}
-      </View>
-
-      <View style={styles.inlineForm}>
-        <TextInput
-          placeholder={t('addTransaction.newAccountPlaceholder')}
-          placeholderTextColor={colors.textMuted}
-          value={newAccountName}
-          onChangeText={setNewAccountName}
-          style={[styles.input, styles.inlineInput]}
-        />
-        <Button
-          title={t('addTransaction.addAccount')}
-          color={colors.primary}
-          disabled={isCreatingAccount}
-          onPress={handleAddAccount}
-        />
       </View>
 
       <TextInput
@@ -153,7 +103,7 @@ export function AddTransactionForm() {
       <Button
         title={isPending ? t('addTransaction.adding') : t('addTransaction.add')}
         color={colors.primary}
-        disabled={isPending || !categoryId || !accountId || !amount}
+        disabled={isPending || !categoryId || !amount}
         onPress={handleSubmit}
       />
     </View>
@@ -192,9 +142,6 @@ const styles = StyleSheet.create({
     opacity: 0.55,
   },
   categoryIconSelected: { opacity: 1, borderWidth: 2, borderColor: colors.text },
-  categoryIconText: { fontSize: 20 },
   categoryName: { fontSize: 12, color: colors.textMuted, textAlign: 'center' },
   categoryNameSelected: { fontSize: 12, color: colors.text, textAlign: 'center' },
-  inlineForm: { flexDirection: 'row', gap: 8, alignItems: 'center' },
-  inlineInput: { flex: 1 },
 });

@@ -3,7 +3,6 @@ import jwt from '@fastify/jwt';
 import Fastify, { type FastifyError, type FastifyReply, type FastifyRequest } from 'fastify';
 import { ZodError } from 'zod';
 import { env } from './lib/env';
-import { accountRoutes } from './routes/accounts';
 import { authRoutes } from './routes/auth';
 import { categoryRoutes } from './routes/categories';
 import { transactionRoutes } from './routes/transactions';
@@ -50,7 +49,6 @@ export function buildApp() {
   app.register(authRoutes, { prefix: '/auth' });
   app.register(transactionRoutes, { prefix: '/transactions' });
   app.register(categoryRoutes, { prefix: '/categories' });
-  app.register(accountRoutes, { prefix: '/accounts' });
 
   app.get('/health', async () => ({ status: 'ok' }));
 

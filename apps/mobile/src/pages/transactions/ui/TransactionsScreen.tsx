@@ -5,7 +5,7 @@ import { useCategoriesQuery } from '../../../entities/category';
 import { useSessionStore } from '../../../entities/session';
 import { useTransactionsQuery } from '../../../entities/transaction';
 import { AddTransactionForm } from '../../../features/add-transaction';
-import { colors } from '../../../shared/ui';
+import { CategoryIcon, colors } from '../../../shared/ui';
 
 export function TransactionsScreen() {
   const { t } = useTranslation();
@@ -37,7 +37,7 @@ export function TransactionsScreen() {
               <View style={styles.row}>
                 {category ? (
                   <View style={[styles.rowIcon, { backgroundColor: category.color }]}>
-                    <Text style={styles.rowIconText}>{category.icon}</Text>
+                    <CategoryIcon name={category.icon} size={14} />
                   </View>
                 ) : null}
                 <Text style={styles.rowText}>
@@ -73,6 +73,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 8,
   },
-  rowIconText: { fontSize: 13 },
   rowText: { color: colors.text },
 });
