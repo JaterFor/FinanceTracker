@@ -15,7 +15,7 @@ COPY --from=deps /repo/packages/shared/node_modules ./packages/shared/node_modul
 COPY --from=deps /repo/apps/api/node_modules ./apps/api/node_modules
 COPY packages/shared packages/shared
 COPY apps/api apps/api
-RUN pnpm --filter @finance-tracker/api exec prisma generate
 WORKDIR /repo/apps/api
+RUN npx prisma generate
 EXPOSE 3000
 CMD ["pnpm", "start"]
