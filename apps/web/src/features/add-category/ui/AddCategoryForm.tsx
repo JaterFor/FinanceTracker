@@ -3,7 +3,7 @@ import { type FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useCreateCategoryMutation } from '../../../entities/category';
-import { pushToast } from '../../../shared/lib';
+import { glowShadow, pushToast } from '../../../shared/lib';
 import { CATEGORY_COLORS, CATEGORY_ICON_KEYS, CategoryIcon } from '../../../shared/ui';
 
 export function AddCategoryForm() {
@@ -60,7 +60,7 @@ export function AddCategoryForm() {
               key={key}
               type="button"
               className={key === icon ? 'icon-swatch selected' : 'icon-swatch'}
-              style={{ backgroundColor: color }}
+              style={{ backgroundColor: color, boxShadow: glowShadow(color, key === icon) }}
               onClick={() => setIcon(key)}
             >
               <CategoryIcon name={key} />

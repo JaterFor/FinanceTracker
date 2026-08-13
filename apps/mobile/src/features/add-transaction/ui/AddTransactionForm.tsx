@@ -21,6 +21,13 @@ export function AddTransactionForm() {
   const [categoryId, setCategoryId] = useState('');
   const [note, setNote] = useState('');
 
+  const categoriesForType = categories?.filter((category) => category.type === type);
+
+  function handleTypeChange(nextType: TransactionType) {
+    setType(nextType);
+    setCategoryId('');
+  }
+
   function handleSubmit() {
     if (!categoryId || !amount) return;
 
@@ -56,7 +63,7 @@ export function AddTransactionForm() {
         {(['expense', 'income'] as const).map((option) => (
           <Pressable
             key={option}
-            onPress={() => setType(option)}
+            onPress={() => handleTypeChange(option)}
             style={[styles.chip, type === option && styles.chipActive]}
           >
             <Text style={type === option ? styles.chipTextActive : styles.chipText}>
@@ -67,7 +74,7 @@ export function AddTransactionForm() {
       </View>
 
       <View style={styles.categoryGrid}>
-        {categories?.map((category) => {
+        {categoriesForType?.map((category) => {
           const selected = categoryId === category.id;
           return (
             <Pressable

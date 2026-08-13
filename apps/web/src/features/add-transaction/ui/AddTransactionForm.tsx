@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCategoriesQuery } from '../../../entities/category';
 import { useCreateTransactionMutation } from '../../../entities/transaction';
-import { pushToast, toDateInputValue } from '../../../shared/lib';
+import { glowShadow, pushToast, toDateInputValue } from '../../../shared/lib';
 import { CategoryIcon } from '../../../shared/ui';
 
 export function AddTransactionForm() {
@@ -19,6 +19,13 @@ export function AddTransactionForm() {
   const [categoryId, setCategoryId] = useState('');
   const [note, setNote] = useState('');
   const [date, setDate] = useState(() => toDateInputValue(new Date()));
+
+  const categoriesForType = categories?.filter((category) => category.type === type);
+
+  function handleTypeChange(nextType: TransactionType) {
+    setType(nextType);
+    setCategoryId('');
+  }
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -59,7 +66,10 @@ export function AddTransactionForm() {
       </label>
       <label>
         {t('addTransaction.type')}
-        <select value={type} onChange={(event) => setType(event.target.value as TransactionType)}>
+        <select
+          value={type}
+          onChange={(event) => handleTypeChange(event.target.value as TransactionType)}
+        >
           <option value="expense">{t('addTransaction.expense')}</option>
           <option value="income">{t('addTransaction.income')}</option>
         </select>
@@ -67,19 +77,28 @@ export function AddTransactionForm() {
       <div className="field-group">
         <span>{t('addTransaction.category')}</span>
         <div className="category-grid">
-          {categories?.map((category) => (
-            <button
-              key={category.id}
-              type="button"
-              className={category.id === categoryId ? 'category-badge selected' : 'category-badge'}
-              onClick={() => setCategoryId(category.id)}
-            >
-              <span className="category-icon" style={{ backgroundColor: category.color }}>
-                <CategoryIcon name={category.icon} />
-              </span>
-              {category.name}
-            </button>
-          ))}
+          {categoriesForType?.map((category) => {
+            const selected = category.id === categoryId;
+            return (
+              <button
+                key={category.id}
+                type="button"
+                className={selected ? 'category-badge selected' : 'category-badge'}
+                onClick={() => setCategoryId(category.id)}
+              >
+                <span
+                  className="category-icon"
+                  style={{
+                    backgroundColor: category.color,
+                    boxShadow: glowShadow(category.color, selected),
+                  }}
+                >
+                  <CategoryIcon name={category.icon} />
+                </span>
+                {category.name}
+              </button>
+            );
+          })}
           <Link to="/categories/new" className="category-badge">
             <span className="category-icon category-icon-add">
               <Plus />

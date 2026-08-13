@@ -1,7 +1,7 @@
 import type { Category, Transaction } from '@finance-tracker/shared';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { formatAmount, formatDayLabel } from '../../../shared/lib';
+import { formatAmount, formatDayLabel, glowShadow } from '../../../shared/lib';
 import { CategoryIcon } from '../../../shared/ui';
 import { groupTransactionsByDay } from '../model/group-transactions';
 
@@ -39,7 +39,13 @@ export function TransactionList({
               return (
                 <li key={transaction.id} className="transaction-row">
                   {category ? (
-                    <span className="transaction-icon" style={{ backgroundColor: category.color }}>
+                    <span
+                      className="transaction-icon"
+                      style={{
+                        backgroundColor: category.color,
+                        boxShadow: glowShadow(category.color),
+                      }}
+                    >
                       <CategoryIcon name={category.icon} size={14} />
                     </span>
                   ) : null}

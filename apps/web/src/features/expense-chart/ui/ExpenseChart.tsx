@@ -1,6 +1,6 @@
 import type { Category, Transaction } from '@finance-tracker/shared';
 import { useTranslation } from 'react-i18next';
-import { formatAmount } from '../../../shared/lib';
+import { formatAmount, glowShadow } from '../../../shared/lib';
 import { CategoryIcon } from '../../../shared/ui';
 import { useExpenseBreakdown } from '../model/use-expense-breakdown';
 
@@ -76,7 +76,10 @@ export function ExpenseChart({
         <ul className="chart-legend">
           {slices.map((slice) => (
             <li key={slice.categoryId}>
-              <span className="chart-legend-dot" style={{ backgroundColor: slice.color }}>
+              <span
+                className="chart-legend-dot"
+                style={{ backgroundColor: slice.color, boxShadow: glowShadow(slice.color) }}
+              >
                 <CategoryIcon name={slice.icon} size={12} />
               </span>
               <span className="chart-legend-name">{slice.name}</span>
