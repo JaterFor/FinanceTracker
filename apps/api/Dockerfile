@@ -18,4 +18,4 @@ COPY apps/api apps/api
 WORKDIR /repo/apps/api
 RUN npx prisma generate
 EXPOSE 3000
-CMD ["pnpm", "start"]
+CMD ["npx", "tsx", "--env-file-if-exists=.env", "src/index.ts"]
